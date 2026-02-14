@@ -61,4 +61,81 @@ function updateJump() {
 function drawPlayer() {
   fill(255, 60, 60);
   rect(x, y, 40, 40);
+}// Player position
+let x = 100;
+let y = 300;
+
+// Jump state
+let jumping = true;
+let jumpFrame = 2;
+
+function setup() {
+  createCanvas(600, 400);
+}
+
+function draw() {
+  background(10, 19, 700); // sky
+
+  // ground
+  fill(600, 2, 900);
+  rect(0, 330, width, 70);
+  updateJump();
+
+  drawPlayer();
+}
+
+// ==================================================
+// JUMP FUNCTION
+// ==================================================
+function jump() {
+  if (!jumping) {
+    jumping = true;
+    jumpFrame = 0;
+  }
+}
+
+function keyPressed() {
+  if (key ===" ") jump();
+  if (key ==="d")moveRight();
+  if(key==="a")moveLeft();
+
+  function moveRight(){
+  x+=5
+  }
+  function moveLeft(){
+  x-=5
+  }
+}
+
+// ==================================================
+// 🧠 JUMP LOGIC
+// ==================================================
+function updateJump() {
+  if (!jumping) return;
+
+  jumpFrame++;
+
+  let t = jumpFrame / 30;
+  let height = sin(t * PI) * 120;
+  y = 300 - height;
+
+  if (jumpFrame >= 30) {
+    jumping = false;
+    y = 300;
+  }
+}
+
+// ==================================================
+// 🎨 DRAW PLAYER
+// ==================================================
+function drawPlayer() {
+  fill(600, 40, 309);
+  rect(x, y, 60, 60);
+  fill(100, 100, 0);
+  circle(x,y,3)
+
+fill(200,6,80)
+triangle(30, 2, 60, 60, x, y);
+   
+
 }
